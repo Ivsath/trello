@@ -2,6 +2,7 @@ import React, { createContext, useReducer, useContext } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import { findItemIndexById } from '../utils/findItemIndexById';
+import { moveItem } from '../utils/moveItem';
 
 interface Task {
   id: string;
@@ -56,7 +57,8 @@ export const useAppState = () => {
 // It means that Typescript can look at this property and tell what will be the other fields of the interface.
 type Action =
   | { type: 'ADD_LIST'; payload: string }
-  | { type: 'ADD_TASK'; payload: { text: string; taskId: string } };
+  | { type: 'ADD_TASK'; payload: { text: string; taskId: string } }
+  | { type: 'MOVE_LIST'; payload: { dragIndex: number; hoverIndex: number } };
 
 const appStateReducer = (state: AppState, action: Action): AppState => {
   switch (action.type) {
@@ -78,6 +80,12 @@ const appStateReducer = (state: AppState, action: Action): AppState => {
         id: uuid(),
         text: action.payload.text,
       });
+
+      return { ...state };
+    }
+    case 'MOVE_LIST': {
+      const { dragIndex, hoverIndex } = action.payload;
+      state.lists = moveItem(state.lists, dragIndex, hoverIndex);
 
       return { ...state };
     }
