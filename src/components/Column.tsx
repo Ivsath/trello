@@ -24,6 +24,9 @@ export const Column = ({ text, index, id }: ColumnProps) => {
     hover(item: DragItem) {
       const dragIndex = item.index;
       const hoverIndex = index;
+      console.log(item);
+      // console.log('dragIndex: ' + dragIndex);
+      // console.log('hoverIndex: ' + hoverIndex);
 
       // If we are hovering above the dragged item
       if (dragIndex === hoverIndex) {
