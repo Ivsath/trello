@@ -1,4 +1,12 @@
-// We have to provide information about it to react-dnd
+// We have to provide information about the item to drag to react-dnd
+export type CardDragItem = {
+  index: number;
+  id: string;
+  columnId: string;
+  text: string;
+  type: 'CARD';
+};
+
 export type ColumnDragItem = {
   index: number;
   id: string;
@@ -6,4 +14,4 @@ export type ColumnDragItem = {
   type: 'COLUMN';
 };
 
-export type DragItem = ColumnDragItem;
+export type DragItem = CardDragItem | ColumnDragItem;
