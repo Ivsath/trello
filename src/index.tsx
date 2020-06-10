@@ -8,6 +8,8 @@ import { AppStateProvider } from './context/AppStateContext';
 
 import './index.css';
 
+// The Dnd provider will add a dragging context to our app.
+// It will allow us to use useDrag and useDrop hooks inside our components.
 ReactDOM.render(
   <React.StrictMode>
     <DndProvider backend={HTML5Backend}>
