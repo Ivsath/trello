@@ -1,6 +1,6 @@
 import { useDrag } from 'react-dnd';
 import { useAppState } from '../context/AppStateContext';
-import { DragItem } from '../components/drag/DragItem';
+import { DragItem } from '../types/DragItem';
 
 // This hook will return a drag method that accepts the ref of a draggable element (cards and columns).
 // Whenever we start dragging the item - the hook will dispatch a SET_DRAG_ITEM action to save the item in the app state.

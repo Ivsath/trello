@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 import { findItemIndexById } from '../utils/findItemIndexById';
 import { moveItem } from '../utils/moveItem';
-import { DragItem } from '../components/drag/DragItem';
+import { DragItem } from '../types/DragItem';
 
 interface Task {
   id: string;
