@@ -6,6 +6,7 @@ interface AddItemButtonProps {
 
 interface DragPreviewContainerProps {
   isHidden?: boolean;
+  isPreview?: boolean;
 }
 
 // Arrange columns horizontally
@@ -20,7 +21,8 @@ export const AppContainer = styled.div`
 `;
 
 export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
-  opacity: ${(props) => (props.isHidden ? 0.3 : 1)};
+  transform: ${(props) => (props.isPreview ? 'rotate(5deg)' : undefined)};
+  opacity: ${(props) => (props.isHidden ? 0.0 : 1)};
 `;
 
 // Container component to render the preview
