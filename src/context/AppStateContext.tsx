@@ -62,7 +62,7 @@ type Action =
   | { type: 'ADD_LIST'; payload: string }
   | { type: 'ADD_TASK'; payload: { text: string; taskId: string } }
   | { type: 'MOVE_LIST'; payload: { dragIndex: number; hoverIndex: number } }
-  | { type: "SET_DRAGGED_ITEM"; payload: DragItem | undefined }
+  | { type: 'SET_DRAGGED_ITEM'; payload: DragItem | undefined };
 
 const appStateReducer = (state: AppState, action: Action): AppState => {
   switch (action.type) {
@@ -95,8 +95,8 @@ const appStateReducer = (state: AppState, action: Action): AppState => {
     }
     // We need to hide the item that we are currently dragging.
     // To do this we need to know what kind of item are we dragging.
-    case "SET_DRAGGED_ITEM": {
-      return { ...state, draggedItem: action.payload }
+    case 'SET_DRAGGED_ITEM': {
+      return { ...state, draggedItem: action.payload };
     }
     default: {
       return state;
