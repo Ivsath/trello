@@ -3,6 +3,7 @@ import React from 'react';
 import { AppContainer } from '../styles';
 import { Column } from './Column';
 import { AddNewItem } from './AddNewItem';
+import CustomDragLayer from './CustomDragLayer';
 
 import { useAppState } from '../context/AppStateContext';
 
@@ -11,6 +12,7 @@ function App() {
 
   return (
     <AppContainer>
+      <CustomDragLayer />
       {state.lists.map((list, i) => (
         <Column id={list.id} text={list.text} key={list.id} index={i} />
       ))}

@@ -23,6 +23,17 @@ export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
   opacity: ${(props) => (props.isHidden ? 0.3 : 1)};
 `;
 
+// Container component to render the preview
+export const CustomDragLayerContainer = styled.div`
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+`;
+
 // Set the grey background and rounded corners
 export const ColumnContainer = styled(DragPreviewContainer)`
   background-color: #ebecf0;
