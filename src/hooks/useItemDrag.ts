@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
 import { useDrag } from 'react-dnd';
+import { getEmptyImage } from 'react-dnd-html5-backend';
+
 import { useAppState } from '../context/AppStateContext';
 import { DragItem } from '../types/DragItem';
 
@@ -7,7 +10,7 @@ import { DragItem } from '../types/DragItem';
 // When we stop dragging it will dispatch this action again with undefined as payload.
 export const useItemDrag = (item: DragItem) => {
   const { dispatch } = useAppState();
-  const [, drag] = useDrag({
+  const [, drag, preview] = useDrag({
     item,
     begin: () => dispatch({ type: 'SET_DRAGGED_ITEM', payload: item }),
     end: () =>
@@ -16,6 +19,10 @@ export const useItemDrag = (item: DragItem) => {
         payload: undefined,
       }),
   });
+
+  useEffect(() => {
+    preview(getEmptyImage(), { captureDraggingState: true });
+  }, [preview]);
 
   return { drag };
 };
