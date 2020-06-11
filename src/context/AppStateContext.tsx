@@ -102,7 +102,6 @@ const appStateReducer = (state: AppState, action: Action): AppState => {
 
       return { ...state };
     }
-
     case 'MOVE_TASK': {
       const {
         dragIndex,
@@ -118,7 +117,6 @@ const appStateReducer = (state: AppState, action: Action): AppState => {
 
       return { ...state };
     }
-
     // We need to hide the item that we are currently dragging.
     // To do this we need to know what kind of item are we dragging.
     case 'SET_DRAGGED_ITEM': {

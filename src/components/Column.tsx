@@ -22,28 +22,44 @@ export const Column = ({ text, index, id, isPreview }: ColumnProps) => {
   const ref = useRef<HTMLDivElement>(null);
   // The hover callback is triggered whenever we move the dragged item above the drop target
   const [, drop] = useDrop({
-    accept: 'COLUMN',
+    accept: ['COLUMN', 'CARD'],
     hover(item: DragItem) {
-      const dragIndex = item.index;
-      const hoverIndex = index;
-      console.log(item);
-      // console.log('dragIndex: ' + dragIndex);
-      // console.log('hoverIndex: ' + hoverIndex);
+      if (item.type === 'COLUMN') {
+        const dragIndex = item.index;
+        const hoverIndex = index;
 
-      // If we are hovering above the dragged item
-      if (dragIndex === hoverIndex) {
-        return;
+        // If we are hovering above the dragged item
+        if (dragIndex === hoverIndex) {
+          return;
+        }
+
+        // When we hover over another column we’ll dispatch a MOVE_LIST action to swap the dragged and target column positions
+        dispatch({
+          type: 'MOVE_LIST',
+          payload: {
+            dragIndex,
+            hoverIndex,
+          },
+        });
+        item.index = hoverIndex;
+      } else {
+        const dragIndex = item.index;
+        const hoverIndex = 0;
+        const sourceColumn = item.columnId;
+        const targetColumn = id;
+
+        if (sourceColumn === targetColumn) {
+          return;
+        }
+
+        dispatch({
+          type: 'MOVE_TASK',
+          payload: { dragIndex, hoverIndex, sourceColumn, targetColumn },
+        });
+
+        item.index = hoverIndex;
+        item.columnId = targetColumn;
       }
-
-      // When we hover over another column we’ll dispatch a MOVE_LIST action to swap the dragged and target column positions
-      dispatch({
-        type: 'MOVE_LIST',
-        payload: {
-          dragIndex,
-          hoverIndex,
-        },
-      });
-      item.index = hoverIndex;
     },
   });
   const { drag } = useItemDrag({
@@ -62,8 +78,14 @@ export const Column = ({ text, index, id, isPreview }: ColumnProps) => {
       isHidden={isHidden(isPreview, state.draggedItem, 'COLUMN', id)}
     >
       <ColumnTitle>{text}</ColumnTitle>
-      {state.lists[index].tasks.map((task) => (
-        <Card text={task.text} key={task.id} />
+      {state.lists[index].tasks.map((task, i) => (
+        <Card
+          id={task.id}
+          columnId={id}
+          text={task.text}
+          key={task.id}
+          index={i}
+        />
       ))}
       <AddNewItem
         toggleButtonText="+ Add another task"
